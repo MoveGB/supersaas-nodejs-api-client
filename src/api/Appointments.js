@@ -1,6 +1,7 @@
 (function() {
   var validation  = require("./validation");
   var Appointment = require("../models/Appointment");
+  var Slot = require("../models/Slot");
 
   module.exports = (function() {
     function mapSlotsOrBookings(obj, slot) {
@@ -47,7 +48,7 @@
         if (err) {
           callback(err);
         } else {
-          var res = mapSlotsOrBookings(data);
+          var res = mapSlotsOrBookings(data, true);
           callback(null, res);
         }
       } : null);
