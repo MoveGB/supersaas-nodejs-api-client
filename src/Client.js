@@ -97,7 +97,7 @@
     req.on("response", function(res) {
       res.setEncoding('utf8');
       var body = "";
-
+      var locationHeader = res.headers['location'] ? res.headers['location'] : null; // the ID of a booking created is only returned hidden inside the header
       res.on("data", function(data) {
         return body += data.toString();
       });
@@ -106,6 +106,8 @@
           console.log("Response:");
           console.log(body);
           console.log("==============================");
+          console.log("Location Header");
+          console.log(locationHeader);
         }
 
         if (callback) {
@@ -114,6 +116,9 @@
             if (obj.errors) {
               callback(obj);
             } else {
+              if (obj === ""){ // hack to return the location header, it contains the bookingId
+                obj = locationHeader ? { locationHeader: locationHeader } : "";
+              }
               callback(null, obj);
             }
           } catch (e) {

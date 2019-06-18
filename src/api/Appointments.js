@@ -92,7 +92,7 @@
       var params = {
         schedule_id: validation.validateId(scheduleId),
         user_id: validation.validateId(userId),
-        form: form ? true : nil,
+        form: form ? true : null,
         booking: {
           start: attributes['start'],
           finish: attributes['finish'],
@@ -116,6 +116,7 @@
         if (err) {
           callback(err);
         } else {
+          params.booking.locationHeader = data.locationHeader;
           callback(null, new Appointment(params.booking));
         }
       } : null);
@@ -127,7 +128,7 @@
       var query = {webhook: webhook && webhook !== callback ? 'true' : null};
       var params = {
         schedule_id: validation.validateId(scheduleId),
-        form: form && form !== callback ? true : nil,
+        form: form && form !== callback ? true : null,
         booking: {
           start: attributes['start'],
           finish: attributes['finish'],
