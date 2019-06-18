@@ -70,21 +70,19 @@
       var path = this._userPath(userId);
       var query = {webhook: webhook && webhook !== callback ? 'true' : null};
       var params = {
-        user: {
-          name: validation.validatePresent(attributes['name']),
-          email: attributes['email'],
-          password: attributes['password'],
-          full_name: attributes['full_name'],
-          address: attributes['address'],
-          mobile: attributes['mobile'],
-          phone: attributes['phone'],
-          country: attributes['country'],
-          field_1: attributes['field_1'],
-          field_2: attributes['field_2'],
-          super_field: attributes['super_field'],
-          credit: attributes['credit'] ? validation.validateNumber(attributes['credit']) : null,
-          role: attributes['role'] ? validation.validateOptions(attributes['role'], Users.ROLES) : null
-        }
+        name: validation.validatePresent(attributes['name']),
+        email: attributes['email'],
+        password: attributes['password'],
+        full_name: attributes['full_name'],
+        address: attributes['address'],
+        mobile: attributes['mobile'],
+        phone: attributes['phone'],
+        country: attributes['country'],
+        field_1: attributes['field_1'],
+        field_2: attributes['field_2'],
+        super_field: attributes['super_field'],
+        credit: attributes['credit'] ? validation.validateNumber(attributes['credit']) : null,
+        role: attributes['role'] ? validation.validateOptions(attributes['role'], Users.ROLES) : null
       }
       return this.client.put(path, params, query, callback ? function(err, data) {
         if (err) {
