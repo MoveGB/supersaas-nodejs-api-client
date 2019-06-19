@@ -26,9 +26,11 @@
       } : null);
     }
 
-    Users.prototype.get = function(userId, callback) {
-      var path = this._userPath(userId);
-      return this.client.get(path, null, callback ? function(err, data) {
+    Users.prototype.get = function(userId, sendAlphaNumeric, callback) {
+      var path = sendAlphaNumeric ? '/users' : this._userPath(userId);
+      query = { id: sendAlphaNumeric && sendAlphaNumeric !== callback ? userId : null };
+
+      return this.client.get(path, query, callback ? function(err, data) {
         if (err) {
           callback(err);
         } else {
