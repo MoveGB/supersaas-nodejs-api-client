@@ -16,10 +16,12 @@
       this.client = client;
     }
 
-    Appointments.prototype.agenda = function(scheduleId, userId, fromTime, slot, callback) {
+    // changed this to receive an account, and just use that instead of limit per sched
+    Appointments.prototype.agenda = function(account, userId, fromTime, slot, callback) {
       callback = validation.getCallbackFunctionArg(arguments)
-      var path = "/agenda/" + validation.validateId(scheduleId);
+      var path = "/agenda";
       var query = {
+        account: validation.validatePresent(account),
         user: validation.validatePresent(userId),
         from: fromTime && fromTime !== callback ? validation.validateDatetime(fromTime) : null,
         slot: slot && slot !== callback ? true : null
